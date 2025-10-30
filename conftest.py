@@ -58,19 +58,8 @@ def create_order():
     requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{ready_order.json()["track"]}')
 
 @pytest.fixture
-def create_order_metro_1():
-    metroStation = 1
-    phone = generators.phone_generator()
-    create_order_body = {'metroStation': metroStation, 'phone': phone}
-    ready_order = requests.post(url= f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=create_order_body)
-    yield [create_order_body]
-    requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{ready_order.json()["track"]}')
-
-@pytest.fixture
-def create_order_metro_2():
-    metroStation = 2
-    phone = generators.phone_generator()
-    create_order_body = {'metroStation': metroStation, 'phone': phone}
-    ready_order = requests.post(url= f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=create_order_body)
-    yield [create_order_body]
-    requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{ready_order.json()["track"]}')
+def create_order_metro():
+    metroStation_1 = 1
+    metroStation_2 = 2
+    create_order_body = {'metroStation_1': metroStation_1, 'metroStation_2': metroStation_2}
+    return create_order_body
