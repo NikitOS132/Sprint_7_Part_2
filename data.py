@@ -19,9 +19,7 @@ class DataForOrder:
         "deliveryDate": "2024-10-15",
         "comment": "Come in"
     }
-
-class DataColor:
-    color = [['BLACK'], ['BLUE'], (['BLACK'], ['BLUE']), ['']]
+    scooter_color = [['BLACK'], ['GREY'], (['BLACK'], ['GREY']), ['']]
 
 class ResponseBody:
     COURIER_CREATION_SUCCESS = {'ok': True}
@@ -33,3 +31,7 @@ class ResponseBody:
 class Flags:
     SUCCESSFUL_ORDER_CREATION = 'track'
     SUCCESSFUL_GET_ORDER_LIST = 'orders'
+    SUCCESSFUL_GET_ORDER_LIST_WITH_CERTAIN_METRO = 'orders'
+
+class MetroStationList:
+    metro_station_list = ["1","2"]

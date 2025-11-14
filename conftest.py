@@ -46,37 +46,7 @@ def create_courier_no_password():
 def create_order():
     firstName = generators.first_name_generator()
     lastName = generators.last_name_generator()
-    address = "Vvedenskogo 6"
-    metroStation = "3"
-    phone = generators.phone_generator()
-    rent_time = 2
-    delivery_date = "2024-10-15"
-    comment = generators.comment_generator()
-    create_order_body = {'firstName': firstName, 'lastName': lastName, 'address': address, 'metroStation': metroStation, 'phone': phone, 'rent_time': rent_time, 'delivery_date': delivery_date, 'comment': comment}
-    ready_order = requests.post(url= f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=create_order_body)
-    yield [create_order_body]
-    requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{ready_order.json()["track"]}')
-
-@pytest.fixture
-def create_order_metro_1():
-    firstName = generators.first_name_generator()
-    lastName = generators.last_name_generator()
-    address = "Vvedenskogo 6"
-    metroStation = "1"
-    phone = generators.phone_generator()
-    rent_time = 2
-    delivery_date = "2024-10-15"
-    comment = generators.comment_generator()
-    create_order_body = {'firstName': firstName, 'lastName': lastName, 'address': address, 'metroStation': metroStation, 'phone': phone, 'rent_time': rent_time, 'delivery_date': delivery_date, 'comment': comment}
-    ready_order = requests.post(url= f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=create_order_body)
-    yield [create_order_body]
-    requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{ready_order.json()["track"]}')
-
-@pytest.fixture
-def create_order_metro_2():
-    firstName = generators.first_name_generator()
-    lastName = generators.last_name_generator()
-    address = "Vvedenskogo 6"
+    address = "Buzheninova 9"
     metroStation = "2"
     phone = generators.phone_generator()
     rent_time = 2
