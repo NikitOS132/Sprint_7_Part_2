@@ -42,17 +42,49 @@ def create_courier_no_password():
     requests.post(url= f'{Url.MAIN_URL}{Url.CREATE_COURIER}', json=create_courier_body)
     yield [create_courier_body]
 
-@pytest.fixture
-def create_order():
+@pytest.fixture(params=[["BLACK"], ["GREY"], ["BLACK", "GREY"], []])
+def order_data_with_color(request):
     firstName = generators.first_name_generator()
     lastName = generators.last_name_generator()
     address = "Buzheninova 9"
-    metroStation = "2"
+    metroStation = generators.metro_generator()
     phone = generators.phone_generator()
     rent_time = 2
     delivery_date = "2024-10-15"
+    color = request.param
     comment = generators.comment_generator()
-    create_order_body = {'firstName': firstName, 'lastName': lastName, 'address': address, 'metroStation': metroStation, 'phone': phone, 'rent_time': rent_time, 'delivery_date': delivery_date, 'comment': comment}
+    
+    create_order_body = {
+        'firstName': firstName, 
+        'lastName': lastName, 
+        'address': address, 
+        'metroStation': metroStation, 
+        'phone': phone, 
+        'rent_time': rent_time, 
+        'delivery_date': delivery_date, 
+        'color': color, 
+        'comment': comment
+    }
     ready_order = requests.post(url= f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=create_order_body)
-    yield [create_order_body]
+    yield create_order_body
     requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{ready_order.json()["track"]}')
+
+@pytest.fixture
+def create_order_metro_1():
+    from data import DataForOrder
+    order_data = DataForOrder.user_data.copy()
+    order_data['metroStation'] = 1
+    order = requests.post(f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=order_data)
+    track = order.json()['track']
+    yield track
+    requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{track}')
+
+@pytest.fixture
+def create_order_metro_2():
+    from data import DataForOrder
+    order_data = DataForOrder.user_data.copy()
+    order_data['metroStation'] = 2
+    order = requests.post(f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=order_data)
+    track = order.json()['track']
+    yield track
+    requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{track}')
