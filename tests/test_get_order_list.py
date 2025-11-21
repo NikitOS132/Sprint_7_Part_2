@@ -1,6 +1,6 @@
 import allure
 import requests
-from data import Url, Flags, Metro
+from data import Url, Flags
 
 class TestOrdersList:
 
@@ -14,10 +14,10 @@ class TestOrdersList:
         order_data = [create_order_metro_1, create_order_metro_2]
         params={"nearestStation": '["1", "2"]'}
         response_status = requests.get(f'{Url.MAIN_URL}{Url.GET_ORDER_LIST}', params=params)
-        assert response_status.status_code == 200
-        assert "1" in Metro.metro_station
-        assert "2" in Metro.metro_station
-        assert "3" not in Metro.metro_station
+        stations = [s["number"] for s in response_status.json()["availableStations"]]
+        assert "1" in stations
+        assert "2" in stations
+        assert "3" not in stations
         
     @allure.title('Test get empty order. Handle:/api/v1/orders')
     def test_get_empty_order_list(self):

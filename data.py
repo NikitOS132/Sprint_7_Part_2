@@ -31,6 +31,3 @@ class ResponseBody:
 class Flags:
     SUCCESSFUL_ORDER_CREATION = 'track'
     SUCCESSFUL_GET_ORDER_LIST = 'orders'
-
-class Metro:
-    metro_station = ["1", "2"]
